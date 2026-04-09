@@ -16,9 +16,10 @@ app.use(cors({
 
 app.use(express.json({ limit: "10kb" }));
 
-// 🔗 MongoDB Connection
+// 🔗 MongoDB Connection    fXYv_CSpu6MJn_f
 mongoose.connect("mongodb://ravi2000vish_db_user:fXYv_CSpu6MJn_f@ac-br1uo2h-shard-00-00.sqbbe3b.mongodb.net:27017,ac-br1uo2h-shard-00-01.sqbbe3b.mongodb.net:27017,ac-br1uo2h-shard-00-02.sqbbe3b.mongodb.net:27017/?ssl=true&replicaSet=atlas-13wv3k-shard-0&authSource=admin&appName=Cluster0", {
   maxPoolSize: 10,
+  family:4
 })
 .then(() => console.log("✅ MongoDB connected successfully"))
 .catch(err => console.log("❌ MongoDB error:", err));
