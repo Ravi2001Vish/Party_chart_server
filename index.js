@@ -1,47 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+
 const recordRoutes = require("./routes/chart_router");
+const authRoutes = require("./routes/auth_routes"); // 👈 NEW
 
 const app = express();
-
-// 🔐 USERS (Role-based access)
-const users = [
-  {
-    username: "maihar",
-    password: "123456",
-    allowedParties: [
-      "MAIHAR ULTRATEC CEMENT WORKS",
-      
-    ],
-  },
-{
-    username: "bela",
-    password: "20261",
-    allowedParties: [
-      "BELA ULTRATEC CEMENT WORKS",
-      
-    ],
-  },
-
-
-  {
-    username: "dhar",
-    password: "999999",
-    allowedParties: [
-      "DHAR ULTRATEC CEMENT WORKS",
-      
-    ],
-  },
-
-  {
-    username: "jklakshmi",
-    password: "112233",
-    allowedParties: [
-      "JK LAKSHMI CEMENT LTD",
-    ],
-  },
-];
 
 // ⚡ Middlewares
 app.use(cors({
@@ -64,30 +28,38 @@ app.get("/", (req, res) => {
   res.send("Hello World 🚀");
 });
 
+// 🔐 LOGIN ROUTES
+   // 👈 IMPORTANT
 
-// 🔐 LOGIN API
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
+// 🔐 USER FILTER MIDDLEWARE
+const users = [
+  {
+    username: "maihar",
+    allowedParties: ["MAIHAR ULTRATEC CEMENT WORKS"],
+  },
+  {
+    username: "bela",
+    allowedParties: ["BELA ULTRATEC CEMENT WORKS"],
+  },
+  {
+    username: "dhar",
+    allowedParties: ["DHAR ULTRATEC CEMENT WORKS"],
+  },
+  {
+    username: "jklakshmi",
+    allowedParties: ["JK LAKSHMI CEMENT LTD"],
+  },
+  {
+    username: "admin@si.com",
+    allowedParties: [
+      "MAIHAR ULTRATEC CEMENT WORKS",
+      "BELA ULTRATEC CEMENT WORKS",
+      "DHAR ULTRATEC CEMENT WORKS",
+      "JK LAKSHMI CEMENT LTD",
+    ],
+  },
+];
 
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  );
-
-  if (!user) {
-    return res.status(401).json({ message: "Invalid credentials" });
-  }
-
-  res.json({
-    message: "Login successful",
-    user: {
-      username: user.username,
-      allowedParties: user.allowedParties,
-    },
-  });
-});
-
-
-// 🔐 MIDDLEWARE (Filter by user)
 app.use("/api", (req, res, next) => {
   const username = req.query.username;
 
@@ -97,17 +69,16 @@ app.use("/api", (req, res, next) => {
 
   if (!user) return next();
 
-  // Attach allowed parties to request
   req.allowedParties = user.allowedParties;
 
   next();
 });
 
-// 🚀 ROUTES (your existing)
-app.use( recordRoutes);
+// 🚀 MAIN ROUTES
+app.use("/api", recordRoutes , authRoutes);
 
-
-// 🚀 Start Server
-app.listen(5000, () => {
-  console.log("🚀 Server running on port 5000");
+// 🚀 Start Server (FIXED FOR RENDER)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
