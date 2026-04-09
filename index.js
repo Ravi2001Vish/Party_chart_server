@@ -75,7 +75,8 @@ app.use("/api", (req, res, next) => {
 });
 
 // 🚀 MAIN ROUTES
-app.use("/api", recordRoutes , authRoutes);
+app.use("/api", recordRoutes,authRoutes);
+//app.use(authRoutes)
 
 // 🚀 Start Server (FIXED FOR RENDER)
 const PORT = process.env.PORT || 5000;
