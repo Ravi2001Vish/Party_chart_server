@@ -36,7 +36,7 @@ const users = [
 ];
 
 // 🔐 LOGIN ROUTE
-router.get("/login", (req, res) => {
+router.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   const user = users.find(
