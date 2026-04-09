@@ -73,15 +73,32 @@ app.use("/api", (req, res, next) => {
 
   next();
 });
-// Direct test route (bypass authRoutes)
-app.post("/api/login-direct", (req, res) => {
-  console.log("Direct test route hit!");
-  res.json({ message: "Direct route works!" });
-});
+
 // 🚀 MAIN ROUTES
 app.use("/api", recordRoutes);
 app.use("/api", authRoutes);
 //app.use(authRoutes)
+
+// DEBUG: Print all registered routes
+console.log("\n📋 REGISTERED ROUTES:");
+console.log("===================");
+
+const printRoutes = (stack, basePath = '') => {
+  stack.forEach(layer => {
+    if (layer.route) {
+      // Route registered directly
+      const methods = Object.keys(layer.route.methods).join(', ').toUpperCase();
+      console.log(`${methods.padEnd(7)} ${basePath}${layer.route.path}`);
+    } else if (layer.name === 'router' && layer.handle.stack) {
+      // Nested router
+      const routerPath = basePath + (layer.regexp.source.replace(/\\\/?/g, '/').replace(/\^|\?/g, '').replace(/\(\?:\(\[\^\\\/\]\+\?\)\)/g, ':id'));
+      printRoutes(layer.handle.stack, routerPath);
+    }
+  });
+};
+
+printRoutes(app._router.stack);
+console.log("===================\n");
 
 // 🚀 Start Server (FIXED FOR RENDER)
 const PORT = process.env.PORT || 5000;  
