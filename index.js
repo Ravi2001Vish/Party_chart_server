@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const recordRoutes = require("./routes/chart_router");
-const authRoutes = require("./routes/auth_routes"); // 👈 NEW
+const authRoutes = require("./routes/authroutes")
 
 const app = express();
 
@@ -79,26 +79,7 @@ app.use("/api", recordRoutes);
 app.use("/api", authRoutes);
 //app.use(authRoutes)
 
-// DEBUG: Print all registered routes
-console.log("\n📋 REGISTERED ROUTES:");
-console.log("===================");
 
-const printRoutes = (stack, basePath = '') => {
-  stack.forEach(layer => {
-    if (layer.route) {
-      // Route registered directly
-      const methods = Object.keys(layer.route.methods).join(', ').toUpperCase();
-      console.log(`${methods.padEnd(7)} ${basePath}${layer.route.path}`);
-    } else if (layer.name === 'router' && layer.handle.stack) {
-      // Nested router
-      const routerPath = basePath + (layer.regexp.source.replace(/\\\/?/g, '/').replace(/\^|\?/g, '').replace(/\(\?:\(\[\^\\\/\]\+\?\)\)/g, ':id'));
-      printRoutes(layer.handle.stack, routerPath);
-    }
-  });
-};
-
-printRoutes(app._router.stack);
-console.log("===================\n");
 
 // 🚀 Start Server (FIXED FOR RENDER)
 const PORT = process.env.PORT || 5000;  
