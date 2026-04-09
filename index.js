@@ -47,8 +47,12 @@ app.get("/", (req, res) => {
 });
 
 
-// 🔐 LOGIN API
-app.post("/login", (req, res) => {
+// =======================================================
+// 🔐 ALL API UNDER /api (CLEAN STRUCTURE)
+// =======================================================
+
+// 🔐 LOGIN API → /api/login
+app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
   const user = users.find(
@@ -79,13 +83,13 @@ app.use("/api", (req, res, next) => {
 
   if (!user) return next();
 
-  // Attach allowed parties to request
+  // Attach allowed parties
   req.allowedParties = user.allowedParties;
 
   next();
 });
 
-// 🚀 ROUTES (your existing)
+// 🚀 ROUTES (data APIs)
 app.use("/api", recordRoutes);
 
 
