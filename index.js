@@ -9,11 +9,7 @@ const app = express();
 
 // ⚡ Middlewares
 app.use(cors({
-  origin: [
-    "http://localhost:3000", 
-    "https://your-frontend.vercel.app",  // ← Replace with YOUR actual frontend URL
-    "https://your-actual-frontend-domain.com"  // Add any other domains
-  ],
+  origin: ["http://localhost:3000", "https://your-frontend.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -77,7 +73,11 @@ app.use("/api", (req, res, next) => {
 
   next();
 });
-
+// Direct test route (bypass authRoutes)
+app.post("/api/login-direct", (req, res) => {
+  console.log("Direct test route hit!");
+  res.json({ message: "Direct route works!" });
+});
 // 🚀 MAIN ROUTES
 app.use("/api", recordRoutes);
 app.use("/api", authRoutes);
