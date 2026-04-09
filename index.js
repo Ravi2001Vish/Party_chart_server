@@ -48,7 +48,7 @@ app.get("/", (req, res) => {
 
 
 // 🔐 LOGIN API
-app.post("/login", (req, res) => {
+app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
   const user = users.find(
