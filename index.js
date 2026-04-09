@@ -9,10 +9,10 @@ const app = express();
 
 // ⚡ Middlewares
 app.use(cors({
-  origin: ["http://localhost:3000", "https://sssypl-party-chart.vercel.app"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  origin: "https://sssypl-party-chart.vercel.app"
 }));
+
+app.options("*", cors());
 
 app.use(express.json());
 
