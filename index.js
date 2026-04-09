@@ -8,17 +8,35 @@ const app = express();
 // 🔐 USERS (Role-based access)
 const users = [
   {
-    username: "ultratec",
+    username: "maihar",
     password: "123456",
     allowedParties: [
       "MAIHAR ULTRATEC CEMENT WORKS",
-      "BELA ULTRATEC CEMENT WORKS",
-      "DHAR ULTRATEC CEMENT WORKS",
+      
     ],
   },
+{
+    username: "bela",
+    password: "20261",
+    allowedParties: [
+      "BELA ULTRATEC CEMENT WORKS",
+      
+    ],
+  },
+
+
+  {
+    username: "dhar",
+    password: "999999",
+    allowedParties: [
+      "DHAR ULTRATEC CEMENT WORKS",
+      
+    ],
+  },
+
   {
     username: "jklakshmi",
-    password: "11223344",
+    password: "112233",
     allowedParties: [
       "JK LAKSHMI CEMENT LTD",
     ],
@@ -41,14 +59,14 @@ mongoose.connect("mongodb://ravi2000vish_db_user:fXYv_CSpu6MJn_f@ac-br1uo2h-shar
 .then(() => console.log("✅ MongoDB connected successfully"))
 .catch(err => console.log("❌ MongoDB error:", err));
 
+// 🏠 Test Route
+app.get("/", (req, res) => {
+  res.send("Hello World 🚀");
+});
 
 
-// =======================================================
-// 🔐 ALL API UNDER /api (CLEAN STRUCTURE)
-// =======================================================
-
-// 🔐 LOGIN API → /api/login
-app.post("/api/login", (req, res) => {
+// 🔐 LOGIN API
+app.post("/login", (req, res) => {
   const { username, password } = req.body;
 
   const user = users.find(
@@ -79,14 +97,14 @@ app.use("/api", (req, res, next) => {
 
   if (!user) return next();
 
-  // Attach allowed parties
+  // Attach allowed parties to request
   req.allowedParties = user.allowedParties;
 
   next();
 });
 
-// 🚀 ROUTES (data APIs)
-app.use("/api", recordRoutes);
+// 🚀 ROUTES (your existing)
+app.use( recordRoutes);
 
 
 // 🚀 Start Server
