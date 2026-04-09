@@ -75,11 +75,12 @@ app.use("/api", (req, res, next) => {
 });
 
 // 🚀 MAIN ROUTES
-app.use("/api", recordRoutes,authRoutes);
+app.use("/api", recordRoutes);
+app.use("/api", authRoutes);
 //app.use(authRoutes)
 
 // 🚀 Start Server (FIXED FOR RENDER)
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;  
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
