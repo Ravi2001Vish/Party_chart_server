@@ -9,12 +9,12 @@ const app = express();
 
 // ⚡ Middlewares
 app.use(cors({
-  origin: ["http://localhost:3000", "https://your-frontend.vercel.app"],
+  origin: ["http://localhost:3000", "https://sssypl-party-chart.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
-app.use(express.json({ limit: "10kb" }));
+app.use(express.json());
 
 // 🔗 MongoDB Connection    fXYv_CSpu6MJn_f
 mongoose.connect("mongodb://ravi2000vish_db_user:fXYv_CSpu6MJn_f@ac-br1uo2h-shard-00-00.sqbbe3b.mongodb.net:27017,ac-br1uo2h-shard-00-01.sqbbe3b.mongodb.net:27017,ac-br1uo2h-shard-00-02.sqbbe3b.mongodb.net:27017/?ssl=true&replicaSet=atlas-13wv3k-shard-0&authSource=admin&appName=Cluster0", {
