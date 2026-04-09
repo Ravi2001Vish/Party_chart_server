@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
 
 
 // ✅ READ SINGLE
-router.get("record/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const data = await Record.findById(req.params.id);
     if (!data) return res.status(404).json({ message: "Not found" });
@@ -39,7 +39,7 @@ router.get("record/:id", async (req, res) => {
 
 
 // ✅ UPDATE
-router.put("record/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const updated = await Record.findByIdAndUpdate(
       req.params.id,
@@ -54,7 +54,7 @@ router.put("record/:id", async (req, res) => {
 
 
 // ✅ DELETE
-router.delete("record/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Record.findByIdAndDelete(req.params.id);
     res.json({ message: "Deleted successfully" });
