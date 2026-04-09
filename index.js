@@ -41,10 +41,6 @@ mongoose.connect("mongodb://ravi2000vish_db_user:fXYv_CSpu6MJn_f@ac-br1uo2h-shar
 .then(() => console.log("✅ MongoDB connected successfully"))
 .catch(err => console.log("❌ MongoDB error:", err));
 
-// 🏠 Test Route
-app.get("/", (req, res) => {
-  res.send("Hello World 🚀");
-});
 
 
 // =======================================================
