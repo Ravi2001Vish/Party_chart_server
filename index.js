@@ -9,7 +9,11 @@ const app = express();
 
 // ⚡ Middlewares
 app.use(cors({
-  origin: ["http://localhost:3000", "https://your-frontend.vercel.app"],
+  origin: [
+    "http://localhost:3000", 
+    "https://your-frontend.vercel.app",  // ← Replace with YOUR actual frontend URL
+    "https://your-actual-frontend-domain.com"  // Add any other domains
+  ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
