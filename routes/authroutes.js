@@ -37,6 +37,7 @@ const users = [
       "BELA ULTRATEC CEMENT WORKS",
       "DHAR ULTRATEC CEMENT WORKS",
       "JK LAKSHMI CEMENT LTD",
+      "JK LAKSHMI CEMENT DABOK"
     ],
   },
 ];
