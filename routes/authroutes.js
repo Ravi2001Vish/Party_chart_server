@@ -23,6 +23,12 @@ const users = [
     password: "112233",
     allowedParties: ["JK LAKSHMI CEMENT LTD"],
   },
+
+   {
+    username: "jkdabok",
+    password: "223344",
+    allowedParties: ["JK LAKSHMI CEMENT DABOK"],
+  },
   {
     username: "admin@si.com",
     password: "sypl@2026",
